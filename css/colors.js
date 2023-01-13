@@ -1,7 +1,7 @@
 const colors = {
-    bgColor: '#ffda79',
-    textColor: '#34ace0',
-    cardColor: '#f7f1e3',
-    btnColor: '#706fd3',
+  bgColor: "#f2faf4",
+  textColor: "#291e5f",
+  cardColor: "#f7f1e3",
+  btnColor: "#291e5f",
 };
 export default colors;
