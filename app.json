@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "deans-diary",
+    "slug": "deans-diary",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "deans-diary"
+}
