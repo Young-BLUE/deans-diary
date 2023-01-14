@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components/native";
 import colors from "../css/colors";
 import { Alert } from "react-native";
+import { useDB } from "../utils/context";
 
 const View = styled.View`
   background-color: ${colors.bgColor};
@@ -57,7 +58,8 @@ const EmotionText = styled.Text`
 
 const emotions = ["😃", "🙂", "🥲", "😭", "🥰"];
 
-const Write = () => {
+const Write = ({ navigation: { goBack } }) => {
+  const realm = useDB();
   const [selectedEmotion, setEmotion] = useState(null);
   const [feelings, setFeelings] = useState("");
   const onChangeText = (text) => setFeelings(text);
@@ -68,6 +70,15 @@ const Write = () => {
     if (feelings === "" || selectedEmotion == null) {
       return Alert.alert("Please complete form.");
     }
+    realm.write(() => {
+      // 타입스크립트로 하면 model 정의해서 필수값 누락 안되게 할 수 있을듯.
+      realm.create("Feeling", {
+        _id: Date.now(),
+        emotion: selectedEmotion,
+        message: feelings,
+      });
+    });
+    goBack();
   };
   return (
     <View>
