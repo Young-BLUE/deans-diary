@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 import colors from "../css/colors";
 import { Ionicons } from "@expo/vector-icons";
 import { useDB } from "../utils/context";
-import { Alert, FlatList, TouchableOpacity } from "react-native";
+import { FlatList, LayoutAnimation, TouchableOpacity } from "react-native";
 
 const View = styled.View`
   flex: 1;
@@ -53,7 +53,8 @@ const Home = ({ navigation: { navigate } }) => {
   useEffect(() => {
     const feelings = realm.objects("Feeling");
     feelings.addListener((feelings, changes) => {
-      setFeelings(feelings.sorted("_id", true));
+      LayoutAnimation.spring(); // 변화에 대해 Animation ( 안드로이드는 추가 코드 필요)
+      setFeelings(feelings.sorted("_id", false));
     });
     return () => {
       feelings.removeAllListeners();
@@ -69,7 +70,7 @@ const Home = ({ navigation: { navigate } }) => {
 
   return (
     <View>
-      <Title>나의 일기장</Title>
+      <Title>나의 메모</Title>
       <FlatList
         data={feelings}
         contentContainerStyle={{ paddingVertical: 10 }}
