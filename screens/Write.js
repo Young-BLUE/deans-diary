@@ -71,7 +71,7 @@ const Write = () => {
   };
   return (
     <View>
-      <Title>How do you feel today?</Title>
+      <Title>오늘 당신의 하루는 어땠나요?</Title>
       <Emotions>
         {emotions.map((emotion, index) => (
           <Emotion
@@ -88,7 +88,7 @@ const Write = () => {
         returnKeyType={"done"}
         onSubmitEditing={onSubmit}
         onChangeText={onChangeText}
-        placeholder="Write your feelings."
+        placeholder="오늘 느낀 감정을 얘기해주세요."
         placeholderTextColor={"#bababa"}
       />
       <Btn onPress={onSubmit}>

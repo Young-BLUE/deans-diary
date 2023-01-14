@@ -29,7 +29,7 @@ const Btn = styled.TouchableOpacity`
 const Home = ({ navigation: { navigate } }) => {
   return (
     <View>
-      <Title>My journal</Title>
+      <Title>나의 일기장</Title>
       <Btn onPress={() => navigate("Write")}>
         <Ionicons name={"add"} color={"white"} size={40} />
       </Btn>
