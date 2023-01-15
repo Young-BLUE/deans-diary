@@ -4,16 +4,20 @@ import colors from "../css/colors";
 import { Ionicons } from "@expo/vector-icons";
 import { useDB } from "../utils/context";
 import { FlatList, LayoutAnimation, TouchableOpacity } from "react-native";
+import {AdMobBanner} from "expo-ads-admob";
 
 const View = styled.View`
   flex: 1;
+  //justify-content: center;
+  align-items: center;
   padding: 100px 30px 0px 30px;
   background-color: ${colors.bgColor};
 `;
 const Title = styled.Text`
   color: ${colors.textColor};
   font-size: 38px;
-  margin-bottom: 100px;
+  width: 100%;
+  //margin-bottom: 100px;
 `;
 const Btn = styled.TouchableOpacity`
   position: absolute;
@@ -54,7 +58,7 @@ const Home = ({ navigation: { navigate } }) => {
     const feelings = realm.objects("Feeling");
     // inserts, deletes, updates... etc whatever anything happened via addListener
     feelings.addListener((feelings) => {
-      LayoutAnimation.spring(); // 변화에 대해 Animation ( 안드로이드는 추가 코드 필요)
+      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut); // 변화에 대해 Animation ( 안드로이드는 추가 코드 필요)
       setFeelings(feelings.sorted("_id", false));
     });
     return () => {
@@ -72,7 +76,12 @@ const Home = ({ navigation: { navigate } }) => {
   return (
     <View>
       <Title>나의 메모</Title>
+        <AdMobBanner
+            style={{ backgroundColor: 'white'}}
+            bannerSize={'fullBanner'}
+            adUnitID={"ca-app-pub-3940256099942544/2934735716"} />
       <FlatList
+          style={{ marginVertical: 50, width: '100%'}}
         data={feelings}
         contentContainerStyle={{ paddingVertical: 10 }}
         ItemSeparatorComponent={Separator}

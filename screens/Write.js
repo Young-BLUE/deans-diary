@@ -3,6 +3,7 @@ import styled from "styled-components/native";
 import colors from "../css/colors";
 import { Alert } from "react-native";
 import { useDB } from "../utils/context";
+import {AdMobInterstitial, AdMobRewarded} from "expo-ads-admob";
 
 const View = styled.View`
   background-color: ${colors.bgColor};
@@ -66,19 +67,22 @@ const Write = ({ navigation: { goBack } }) => {
   const onEmotionPress = (face) => {
     setEmotion(face);
   };
-  const onSubmit = () => {
-    if (feelings === "" || selectedEmotion == null) {
-      return Alert.alert("Please complete form.");
-    }
-    realm.write(() => {
-      // 타입스크립트로 하면 model 정의해서 필수값 누락 안되게 할 수 있을듯
-      realm.create("Feeling", {
-        _id: Date.now(),
-        emotion: selectedEmotion,
-        message: feelings,
+  const onSubmit = async () => {
+      if (feelings === "" || selectedEmotion == null) {
+          return Alert.alert("Please complete form.");
+      }
+      realm.write(() => {
+          // 타입스크립트로 하면 model 정의해서 필수값 누락 안되게 할 수 있을듯
+          realm.create("Feeling", {
+              _id: Date.now(),
+              emotion: selectedEmotion,
+              message: feelings,
+          });
       });
-    });
-    goBack(); // navigation props 에 의해 제공되는 함수
+      await AdMobRewarded.setAdUnitID("ca-app-pub-3940256099942544/1712485313");
+      await AdMobRewarded.requestAdAsync();
+      await AdMobRewarded.showAdAsync();
+      //goBack(); // navigation props 에 의해 제공되는 함수
   };
   return (
     <View>
