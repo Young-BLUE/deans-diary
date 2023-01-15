@@ -71,14 +71,14 @@ const Write = ({ navigation: { goBack } }) => {
       return Alert.alert("Please complete form.");
     }
     realm.write(() => {
-      // 타입스크립트로 하면 model 정의해서 필수값 누락 안되게 할 수 있을듯.
+      // 타입스크립트로 하면 model 정의해서 필수값 누락 안되게 할 수 있을듯
       realm.create("Feeling", {
         _id: Date.now(),
         emotion: selectedEmotion,
         message: feelings,
       });
     });
-    goBack();
+    goBack(); // navigation props 에 의해 제공되는 함수
   };
   return (
     <View>

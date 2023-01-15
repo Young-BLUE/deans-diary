@@ -52,7 +52,8 @@ const Home = ({ navigation: { navigate } }) => {
   const [feelings, setFeelings] = useState([]);
   useEffect(() => {
     const feelings = realm.objects("Feeling");
-    feelings.addListener((feelings, changes) => {
+    // inserts, deletes, updates... etc whatever anything happened via addListener
+    feelings.addListener((feelings) => {
       LayoutAnimation.spring(); // 변화에 대해 Animation ( 안드로이드는 추가 코드 필요)
       setFeelings(feelings.sorted("_id", false));
     });
